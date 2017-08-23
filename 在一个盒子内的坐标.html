@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    *{
+        margin: 0;padding: 0;
+    }
+    .demo{
+        width: 200px;
+        height: 200px;
+        background-color: pink;
+        margin: 100px;
+    }
+</style>
+<body>
+<div class="demo">
+
+</div>
+</body>
+</html>
+
+<script>
+    var div=document.getElementsByTagName("div")[0];
+    var dongzuo;
+    div.onclick=function (event) {
+        var event=event||window.event;
+        var x=event.clientX-this.offsetLeft;
+        var y=event.clientY-this.offsetTop;
+        this.innerHTML="("+x+","+y+")";
+    }
+    div.onmousemove=function () {
+        var event=event||window.event;
+        var x=event.clientX-this.offsetLeft;
+        var y=event.clientY-this.offsetTop;
+        this.innerHTML="("+x+","+y+")";
+    }
+</script>

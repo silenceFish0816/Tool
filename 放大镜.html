@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    *{
+        margin: 0;padding: 0;
+    }
+    .box{
+        width: 350px;
+        height: 350px;
+        margin: 100px;
+        border: 1px solid #CCCCCC;
+        position: relative;
+    }
+    .small{
+        position: relative;
+        overflow: hidden;
+    }
+    .big{
+        width: 450px;
+        height: 450px;
+        position: absolute;
+        top:0;
+        left: 360px;
+        border: 1px solid #CCCCCC;
+        overflow: hidden;
+        display: none;
+    }
+    .masker{
+        height: 100px;
+        width: 100px;
+        background: rgba(255,255,0,0.3);
+        position: absolute;
+        left: 0;
+        top: 0;
+        cursor: move;
+        display: none;
+    }
+    .big img{
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+</style>
+<body>
+<div class="box" id="fdj">
+    <!--小盒子-->
+    <div class="small">
+        <img src="img/小图.jpg" alt="">
+        <div class="masker"></div>
+    </div>
+    <!--大盒子-->
+    <div class="big">
+        <img src="img/大图.jpg" alt="">
+    </div>
+</div>
+</body>
+</html>
+<script>
+    var fdj=document.getElementById("fdj");
+    var small=fdj.children[0];
+    var big=fdj.children[1];
+    var masker=small.children[1];
+    var bigimg=big.children[0];
+    small.onmouseover=function (event) {
+        masker.style.display="block";
+        big.style.display="block";
+
+    }
+    small.onmouseout=function (event) {
+        masker.style.display="none";
+        big.style.display="none";
+
+    }
+
+    /*鼠标在small中移动*/
+    small.onmousemove=function (event) {
+        var event=event||window.event;
+        var X=event.clientX-fdj.offsetLeft-masker.offsetWidth/2;
+        var Y=event.clientY-fdj.offsetTop-masker.offsetHeight/2;
+        if(X<0){X=0;}
+       else  if(X>(fdj.offsetWidth-masker.offsetWidth)){X=fdj.offsetWidth-masker.offsetWidth;}
+        if(Y<0){Y=0;}
+        if(Y>(fdj.offsetHeight-masker.offsetHeight)){Y=fdj.offsetHeight-masker.offsetHeight;}
+        masker.style.left=X+"px";
+        masker.style.top=Y+"px";
+
+        /**/
+        bigimg.style.left=-X*big.offsetWidth/small.offsetWidth+"px";
+        bigimg.style.top=-Y*big.offsetWidth/small.offsetWidth+"px";
+
+    }
+
+</script>

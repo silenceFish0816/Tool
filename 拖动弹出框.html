@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{margin: 0;padding: 0;list-style: none;}
+        .banner{
+            height: 50px;
+            background-color: seagreen;
+            color: white;
+            line-height: 50px;
+        }
+        .banner li{
+            margin-left: 50px;
+            cursor: pointer;
+        }
+        .banner2{
+            width: 500px;
+            height: 500px;
+            position: absolute;
+            border: 5px solid #CCCCCC;
+            margin-top: 100px;
+            margin-left: 1000px;
+        }
+        .drop{
+            position: absolute;
+            height: 30px;
+            width: 200px;
+            background-color: cadetblue;
+            color: white;
+            line-height: 30px;
+            cursor: move;
+        }
+        .banner2 ul{
+            display: block;
+            height: 30px;
+            color: white;
+            background-color: cadetblue;
+        }
+        .banner2 ul li{
+            float: left;
+            line-height: 30px;
+            padding: 0 10px;
+        }
+        #close{
+            float: right;
+        }
+    </style>
+</head>
+<body>
+<div class="banner">
+    <ul>
+        <li>注册信息</li>
+    </ul>
+</div>
+<div class="toggle">
+    <div class="banner2" id="banner2">
+
+        <div class="drop" id="drop">注册信息（可以拖拽）</div>
+        <ul>
+            <li id="close">【关闭】</li>
+        </ul>
+    </div>
+</div>
+</body>
+</html>
+
+<script>
+    var banner2=document.getElementById("banner2");
+    var drop=document.getElementById("drop");
+    startDrop(drop,banner2);//鼠标放在drop上，但移动的是banner2／box
+
+    function startDrop(current,move) {
+
+        current.onmousedown=function (event) {
+            var event=event||window.event;
+            console.log(move.offsetLeft);
+            var x=event.clientX-move.offsetLeft;
+            console.log(move.offsetLeft);
+            var y=event.clientY-move.offsetTop;//记录当前盒子的位置
+
+            document.onmousemove=function (event2) {
+                var event2=event2||window.event2;
+                move.style.left=event2.clientX-x-1000+"px";
+                move.style.top=event2.clientY-y-100+"px";
+            }
+
+        }
+        document.onmouseup=function () {
+            document.onmousemove=null;
+        }
+
+
+
+    }
+</script>

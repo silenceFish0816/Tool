@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{margin:0;padding: 0;}
+        .scroll{
+            width: 400px;
+            height: 8px;
+            background-color: #CCCCCC;
+            margin: 100px auto;
+            position: relative;
+        }
+        .bar{
+            width: 10px;
+            height: 25px;
+            background-color: #369;
+            position: absolute;
+            top: -8px;
+        }
+        .bg{
+            background-color: #369;
+            width: 0;
+            height: 8px;
+        }
+        .demo{
+            color: #336699;
+            float: left;
+        }
+
+    </style>
+</head>
+<body>
+<div class="scroll" id="scroll">
+    <div class="bar"></div>
+    <div class="bg"></div>
+    <div class="demo" id="demo"></div>
+</div>
+
+</body>
+</html>
+<script>
+    var scroll=document.getElementById("scroll");
+    var bar=scroll.children[0];
+    var bg=scroll.children[1];
+    var demo=document.getElementById("demo");
+    bar.onmousedown=function () {
+
+        /*拖动一定要写在dowm里面*/
+        document.onmousemove=function (event) {
+          //
+            var event=event||window.event;
+            var disX=event.clientX-scroll.offsetLeft;
+            if(disX<0){disX=0;}
+            if(disX>scroll.offsetWidth){disX=scroll.offsetWidth;}
+            bar.style.left=disX+"px";
+            bg.style.width=disX+"px";
+            demo.innerHTML="已经走了"+parseInt(disX/scroll.offsetWidth*100)+"%";
+            window.getSelection()? window.getSelection().removeAllRanges():document.selection.empty();
+        }
+
+    }
+    document.onmouseup=function () {
+        document.onmousemove=null;
+    }
+
+
+
+</script>

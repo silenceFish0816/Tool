@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <style>
+        .box {
+            width: 300px;
+            height: 500px;
+            border: 1px solid black;
+            margin: 100px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .content {
+            background-color: lightcoral;
+            height: auto;
+            padding-right: 20px;
+            text-align: justify;
+            position: absolute;
+        }
+
+        .scroll {
+            width: 20px;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            right: 0;
+            background-color: #CCCCCC;
+            box-shadow: -4px 4px 4px #666 inset;
+        }
+
+        .bar {
+            width: 100%;
+            height: 100px;
+            background-color: red;
+            cursor: pointer;
+            border-radius: 5px;
+            position: absolute;
+
+        }
+    </style>
+</head>
+<body>
+<div class="box" id="box">
+    <div class="content">
+        文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字
+        文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字
+        文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字
+        文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字
+        文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字
+        文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字
+        文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字
+        文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字
+        文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字
+    </div>
+    <div class="scroll">
+        <div class="bar"></div>
+    </div>
+</div>
+</body>
+</html>
+<script>
+    var box = document.getElementById("box");
+    var content = box.children[0];
+    var scroll = box.children[1];
+    var bar = scroll.children[0];
+    /*1.首先先要计算滚动条的长度，      内容越多，滚动条越短，反之，越长，最长为父盒子长度
+     * 滚动条的长度计算公式：容器的高度／内容的高度*容器的高度*/
+    var h = box.offsetHeight / content.offsetHeight * box.offsetHeight;
+    bar.style.height = h + "px";
+
+    verticalScroll(bar,content);
+
+
+    function verticalScroll(obj, target) {
+
+
+        bar.onmousedown = function (event) {
+            var event = event || window.event;
+
+            var disCur = event.clientY - box.offsetTop - obj.offsetTop;
+
+
+            document.onmousemove = function (event2) {
+                var event2 = event2 || window.event2;
+
+                var disBar = event2.clientY - box.offsetTop - disCur;
+                if (disBar < 0) {
+                    disBar = 0;
+                }
+                if (disBar > box.offsetHeight - obj.offsetHeight) {
+                    disBar = box.offsetHeight - obj.offsetHeight;
+                }
+                var discontent = disBar / box.offsetHeight * target.offsetHeight;
+                obj.style.top = disBar + "px";
+                target.style.top = -discontent + "px";
+
+                window.getSelection() ? window.getSelection().removeAllRanges() : document.getSelection().empty();
+
+            }
+            document.onmouseup = function () {
+                document.onmousemove = null;
+
+            }
+        }
+    }
+</script>

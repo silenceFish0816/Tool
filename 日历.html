@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+    .box{
+        width: 300px;
+        height: 400px;
+        background-color: #369;
+        margin: 100px auto;
+    }
+        .box p{
+            text-align: center;
+            line-height: 60px;
+            font-size: 22px;
+            color: #ffffff;
+
+        }
+    .box span{
+        margin: 0 auto;
+        display: block;
+        font-size: 75px;
+        width: 100px;
+        height: 100px;
+        background-color: yellow;
+        text-align: center;
+        color: #333;
+    }
+</style>
+<script>
+    window.onload=function () {
+        var box=document.getElementById("date");
+        var boys=box.children;
+
+        //日期函数
+        var arry=["星期日","星期一","星期二","星期三","星期四","星期五","星期六"]
+        var date=new Date();
+        boys[1].innerHTML=date.getDate();
+        boys[0].innerHTML=date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate()+"&nbsp;&nbsp;&nbsp;&nbsp;"+arry[parseInt(date.getDay())];
+
+    }
+</script>
+<body>
+    <div class="box" id="date">
+        <p></p>
+        <span></span>
+    </div>
+</body>
+</html>
