@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+    #he,#ha{
+        float: left;
+        margin-left: 100px;
+    }
+
+   #he div, #ha div {
+        width: 100px;
+        height: 100px;
+        background-color: #B61D1D;
+        margin-top: 20px;
+    }
+
+    span {
+        display: block;
+        width: 100px;
+        height: 100px;
+        background-color: #B61D1D;
+        margin-top: 20px;
+    }
+</style>
+<script>
+
+    /*封装自己的class类*/
+    window.onload = function () {
+
+        function getClass(className,id) {
+
+            /*支持*/
+            if (document.getElementsByClassName) {
+
+                if (id) {
+                    return document.getElementById(id).getElementsByClassName(className);
+                }
+
+                return document.getElementsByClassName(className);
+            }
+
+            /*不支持*/
+
+            if(id){
+                var doms = document.getElementById(id).getElementsByTagName("*");
+            }
+            else{
+                var doms = document.getElementsByTagName("*");
+            }
+
+
+                var arr = [];
+                    for(i=0;i<doms.length;i++){
+                        var tags=doms[i].className.split(" ");
+                        for(j=0;j<tags.length;j++){
+                            if(tags[j]==className){
+                                arr.push(doms[i]);
+                            }
+                        }
+                    }
+                return arr;
+            }
+
+
+
+        var hes = getClass("test","he");
+        var has=getClass("test","ha");
+        for (i = 0; i < hes.length; i++) {
+            hes[i].style.backgroundColor = "pink";
+            has[i].style.backgroundColor="purple";
+        }
+
+
+    }
+
+
+</script>
+<body>
+
+<div id="he">
+    <div class="demo test"></div>
+    <div class="demo one"></div>
+    <div class="test"></div>
+    <div class="demo two"></div>
+    <span class="test"></span>
+</div>
+
+
+<div id="ha">
+    <div class="demo"></div>
+    <div class="demo test"></div>
+    <div class="demo"></div>
+    <div class="demo test"></div>
+    <span class="one"></span>
+</div>
+
+</body>
+</html>

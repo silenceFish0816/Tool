@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        img {
+            width: 100px;
+        }
+
+        .back {
+            position: fixed;
+            bottom: 50px;
+            right: 100px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<div class="main">
+    <h1>春江花月夜</h1>
+    <h1>春江花月夜</h1>
+    <h1>春江花月夜</h1>
+    <h1>春江花月夜</h1>
+    <h1>春江花月夜</h1>
+    <h1>春江花月夜</h1>
+    <h1>春江花月夜</h1>
+    <h1>春江花月夜</h1>
+    <h1>春江花月夜</h1>
+    <h1>春江花月夜</h1>
+    <h1>春江花月夜</h1>
+    <h1>春江花月夜</h1>
+    <h1>春江花月夜</h1>
+    <h1>春江花月夜</h1>
+    <h1>春江花月夜</h1>
+    <h1>春江花月夜</h1>
+    <h1>春江花月夜</h1>
+    <h1>春江花月夜</h1>
+    <h1>春江花月夜</h1>
+    <h1>春江花月夜</h1>
+    <h1>春江花月夜</h1>
+    <h1>春江花月夜</h1>
+    <h1>春江花月夜</h1>
+    <h1>春江花月夜</h1>
+    <h1>春江花月夜</h1>
+    <h1>春江花月夜</h1>
+    <h1>春江花月夜</h1>
+    <h1>春江花月夜</h1>
+    <h1>春江花月夜</h1>
+    <h1>春江花月夜</h1>
+    <h1>春江花月夜</h1>
+    <h1>春江花月夜</h1>
+    <h1>春江花月夜</h1>
+    <h1>春江花月夜</h1>
+    <h1>春江花月夜</h1>
+    <h1>春江花月夜</h1>
+    <h1>春江花月夜</h1>
+    <h1>春江花月夜</h1>
+    <h1>春江花月夜</h1>
+    <h1>春江花月夜</h1>
+    <h1>春江花月夜</h1>
+    <h1>春江花月夜</h1>
+    <h1>春江花月夜</h1>
+    <h1>春江花月夜</h1>
+    <h1>春江花月夜</h1>
+    <h1>春江花月夜</h1>
+    <h1>春江花月夜</h1>
+    <h1>春江花月夜</h1>
+    <h1>春江花月夜</h1>
+    <h1>春江花月夜</h1>
+    <h1>春江花月夜</h1>
+    <h1>春江花月夜</h1>
+    <h1>春江花月夜</h1>
+    <h1>春江花月夜</h1>
+    <h1>春江花月夜</h1>
+    <h1>春江花月夜</h1>
+    <h1>春江花月夜</h1>
+    <h1>春江花月夜</h1>
+    <h1>春江花月夜</h1>
+    <h1>春江花月夜</h1>
+    <h1>春江花月夜</h1>
+    <h1>春江花月夜</h1>
+    <h1>春江花月夜</h1>
+    <h1>春江花月夜</h1>
+    <h1>春江花月夜</h1>
+    <h1>春江花月夜</h1>
+    <h1>春江花月夜</h1>
+    <h1>春江花月夜</h1>
+    <h1>春江花月夜</h1>
+    <h1>春江花月夜</h1>
+    <h1>春江花月夜</h1>
+    <h1>春江花月夜</h1>
+    <h1>春江花月夜</h1>
+    <h1>春江花月夜</h1>
+    <h1>春江花月夜</h1>
+</div>
+<div class="back" id="back">
+    <img src="img/timg.jpeg" alt="">
+</div>
+</body>
+</html>
+<script>
+
+
+    window.onload = function () {
+
+        var back = $("back");
+        var timer = 0;
+        var leader=0
+        window.onscroll = function () {
+            console.log(scroll().top);
+            scroll().top > 0 ? show(back) : hide(back);
+
+           leader = scroll().top;
+
+        }
+        var target = 0;
+        back.onclick = function () {
+
+            timer = setInterval(function () {
+
+                leader = leader + (target - leader) / 10;
+                window.scrollTo(0, leader);
+                if (leader == target) {
+                    clearInterval(timer);
+                }
+
+            }, 10)
+
+        }
+        clearInterval(timer);
+
+    }
+
+
+    function $(id) {
+        return document.getElementById(id);
+    }
+    //封装scrollTop
+    function scroll() {
+        if (window.pageYOffset != null)//ie9+ 和 其他浏览器
+        {
+            return {
+                left: window.pageXOffset,
+                top: window.pageYOffset
+            }
+        }
+        else if (document.compatMode == "Css1Compat")//申明了DTD的
+        {
+            return {
+                left: document.documentElement.scrollLeft,
+                top: document.documentElement.scrollTop
+            }
+        }
+        return {//剩下的就是怪异模式
+            left: document.body.scrollLeft,
+            top: document.body.scrollTop
+        }
+    }
+    function show(id) {
+        id.style.display = "block";
+    }
+    function hide(id) {
+        id.style.display = "none";
+    }
+
+</script>
