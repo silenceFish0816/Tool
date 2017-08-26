@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        button {
+            font-size: 20px
+        }
+
+        .box {
+            width: 100px;
+            height: 100px;
+            background-color: cadetblue;
+            position: absolute;
+        }
+
+    </style>
+</head>
+<body>
+<button id="btn500">开始到500</button>
+<button id="btn1000">开始到1000</button>
+<div class="box" id="box"></div>
+</body>
+</html>
+<script>
+
+    window.onload = function () {
+        $("btn500").onclick = function () {
+            animate($("box"), 500, 10);
+        };
+
+        $("btn1000").onclick = function () {
+            animate($("box"), 1000, 20);
+        };
+    }
+
+
+    function $(id) {
+        return document.getElementById(id);
+    }
+
+    //匀速运动函数封装
+    function animate(obj, target, speed) {
+        clearInterval(obj.timmer);  //必须先清除下定时器，否则会越走越快
+        speed = obj.offsetLeft < target ? speed : -speed;   //用来判断是正向走还是反向走
+        obj.timmer = setInterval(function () {
+            var result = obj.offsetLeft - target;
+
+            if (Math.abs(result) <= Math.abs(speed)) {  //差值不会超过|speed|
+                obj.style.left = target + "px";
+                clearInterval(obj.timmer);
+            } else {
+                obj.style.left = obj.offsetLeft + speed + "px";
+            }
+            console.log(speed, result, target, obj.offsetLeft);
+        }, 20)
+
+    }
+</script>
