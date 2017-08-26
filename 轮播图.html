@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .div {
+            margin: 0 auto;
+            margin-top: 100px;
+            width: 400px;
+            height: 200px;
+            border: 1px solid #CCCCCC;
+            position: relative;
+            overflow: auto;
+        }
+
+        ul {
+            position: absolute;
+            width: 700%;
+        }
+
+        ul li {
+            float: left;
+        }
+
+        img {
+            width: 400px;
+            height: 200px;
+            vertical-align: top;
+        }
+
+        ol {
+            position: absolute;
+            display: block;
+            height: 20px;
+            bottom: 0;
+            right: 0;
+        }
+
+        ol li {
+            display: block;
+            width: 20px;
+            height: 20px;
+            background-color: white;
+            margin-left: 10px;
+            float: left;
+            text-align: center;
+            line-height: 20px;
+        }
+
+        .current {
+            background-color: lightgoldenrodyellow;
+        }
+    </style>
+</head>
+<body>
+
+<!--轮播图方法1:非常基本的方法-->
+
+<div class="div" id="box1">
+    <ul id="ul1">
+        <li><img src="img/1.jpg" alt=""></li>
+        <li><img src="img/2.jpg" alt=""></li>
+        <li><img src="img/3.jpg" alt=""></li>
+        <li><img src="img/4.jpg" alt=""></li>
+        <li><img src="img/5.jpg" alt=""></li>
+        <li><img src="img/1.jpg" alt=""></li>
+    </ul>
+</div>
+<script>
+    var ul = document.getElementById("ul1");
+    setInterval(gundong, 10);
+    num = 0;
+    function gundong() {
+        num--;
+
+        num <= -2000 ? num = 0 : num;
+        //  console.log(num);
+
+        ul.style.left = num + "px";
+
+    }
+</script>
+
+
+<!--轮播图方法2-->
+<div class="div" id="box2">
+    <ul id="ul2">
+        <li><img src="img/1.jpg" alt=""></li>
+        <li><img src="img/2.jpg" alt=""></li>
+        <li><img src="img/3.jpg" alt=""></li>
+        <li><img src="img/4.jpg" alt=""></li>
+        <li><img src="img/5.jpg" alt=""></li>
+    </ul>
+</div>
+<script>
+    window.onload = function () {
+        //获取元素
+        var box = document.getElementById("box2");
+        var ul = document.getElementById("ul2");
+        var ullis=ul.children;
+        var key=0;//全局变量，控制播放张数
+        var square=0;//控制小方块,因为图片张数比方块多一个，所以分开方便
+        //1。开始操作元素
+
+
+        //因为要做无缝滚动，需要克隆第一张到最后一张
+        /*a.appendChild(b)   把b放到a的后面*/
+        ul.appendChild(ullis[0].cloneNode(true));//克隆节点
+        //创建 ol 和 小li
+        var ol = document.createElement("ol");
+        box.appendChild(ol);
+        for (i = 0; i < ul.children.length; i++) {
+            var li = document.createElement("li");
+            ol.appendChild(li);
+            li.innerHTML = i + 1;//给里面的小 li 添加文字
+        }
+        var ollis = ol.children;
+        ollis[0].className = "current";
+
+        //2。开始动画部分
+        for (i = 0; i < ollis.length; i++) {
+            ollis[i].index = i;    //判断当前是第几个小 li 的索引号
+            ollis[i].onmouseover = function () {
+                for (i = 0; i < ollis.length; i++) {
+                    ollis[i].className = "";   //所有的都要清空
+                }
+                this.className = "current";
+                console.log(box.offsetWidth, this.index);
+                animate(ul, (-this.index * box.offsetWidth), 10);//调用动画函数
+                key=square=this.index;//当前索引号为主
+
+            }
+        }
+
+        //3。开始定时器
+        var timmer=null;
+        timmer=setInterval(autoplay,1000);
+        function autoplay() {
+            key++;
+            if(key>=ullis.length){
+
+                ul.style.left=0;
+                key=1;
+            }
+
+
+            animate(ul,-key*box.offsetWidth,10);
+            square++;
+            for (i = 0; i < ollis.length; i++) {
+                ollis[i].className = "";   //所有的都要清空
+            }
+            if(square>ollis.length-1){
+                square=0;
+            }
+            ollis[square].className="current";
+
+        }
+
+        //4.最后，鼠标经过大盒子要停止定时器
+        box.onmouseover=function () {
+            clearInterval(timmer);
+        }
+        box.onmouseout=function () {
+            timmer=setInterval(autoplay,1000);
+        }
+    }
+
+
+
+    //匀速运动函数封装
+    function animate(obj, target, speed) {
+        clearInterval(obj.timmer);  //必须先清除下定时器，否则会越走越快
+        speed = obj.offsetLeft < target ? speed : -speed;   //用来判断是正向走还是反向走
+        obj.timmer = setInterval(function () {
+            var result = obj.offsetLeft - target;
+
+            if (Math.abs(result) <= Math.abs(speed)) {  //差值不会超过|speed|
+                obj.style.left = target + "px";
+                clearInterval(obj.timmer);
+            } else {
+                obj.style.left = obj.offsetLeft + speed + "px";
+            }
+          //  console.log(speed, result, target, obj.offsetLeft);
+        }, 10)
+
+    }
+
+</script>
+
+</body>
+</html>
