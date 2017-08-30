@@ -9,6 +9,11 @@
             padding: 0;
         }
 
+        .type {
+            position: relative;
+            height: 150px;
+        }
+
         button {
             font-size: 20px
         }
@@ -23,9 +28,17 @@
     </style>
 </head>
 <body>
-<button id="btn500">开始到500</button>
-<button id="btn1000">开始到1000</button>
-<div class="box" id="box"></div>
+<div class="type" id="yunsu">
+    <button id="btn500">开始到500</button>
+    <button id="btn1000">开始到1000</button>
+    <div class="box" id="box"></div>
+</div>
+<br>
+<div class="type" id="huandong">
+    <button id="btnhd500">开始缓动到500</button>
+    <button id="btnhd1000">开始缓动到1000</button>
+    <div class="box" id="boxhd"></div>
+</div>
 </body>
 </html>
 <script>
@@ -37,6 +50,13 @@
 
         $("btn1000").onclick = function () {
             animate($("box"), 1000, 20);
+        };
+
+        $("btnhd500").onclick = function () {
+            animatehd($("boxhd"), 500);
+        };
+        $("btnhd1000").onclick = function () {
+            animatehd($("boxhd"), 1000);
         };
     }
 
@@ -62,4 +82,24 @@
         }, 20)
 
     }
+
+
+    //缓动动画函数封装
+
+    function animatehd(obj, target) {
+
+        //盒子本身的位子+步长（不断变化的）
+        obj.timmer = setInterval(function () {
+            var step = (target - obj.offsetLeft) / 10;
+            step = step > 0 ? Math.ceil(step) : Math.floor(step);//向前走则向上取，向后退则向下去
+            console.log(obj.offsetLeft);
+            obj.style.left =  obj.offsetLeft + step + "px";
+            if (obj.offsetLeft == target) {
+                clearInterval(obj.timmer);//到目标了
+            }
+        },30)
+
+
+    }
+
 </script>
