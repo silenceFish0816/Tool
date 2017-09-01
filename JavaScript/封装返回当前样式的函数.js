@@ -3,7 +3,7 @@ function getStyle(obj,attr) {
         return obj.currentStyle[attr];
     }
     else {
-        return obj.getComputedStyle(obj,null)[attr]; //W3C浏览器
+        return window.getComputedStyle(obj,null)[attr]; //W3C浏览器
     }
 }/**
  * Created by slience on 2017/9/1.
